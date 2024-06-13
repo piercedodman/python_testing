@@ -1,11 +1,19 @@
-from random import randrange
-from datetime import timedelta
+import random 
+import datetime 
+
 def main():
-    ...
-def randomDate(start, end):
-    delta = end - start
-    intDelta = (delta.days * 24 * 60 * 60) + delta.seconds
-    randomSecond = randrange(intDelta)
-    return start +
+    randomDate()
+
+def randomDate():
+    month = random.randint(1, 12)
+    match month:
+        case 4 | 6 | 9 | 11:
+            maxday = 30
+        case 2:
+            maxday = 28
+        case _ :
+            maxday = 31
+    day = random.randint(1, maxday)
+    return (month, day)
 if __name__ == "__main__":
     main()
