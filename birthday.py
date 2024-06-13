@@ -2,7 +2,17 @@ import random
 import datetime 
 
 def main():
-    randomDate()
+    while True:
+        bdays = int(input("How many birthdays should I generate? (Max 100)\n"))
+        if bdays <= 100:
+            break
+        else:
+            raise ValueError("Please enter a lower integer.")
+    bdayList = []
+    for _ in range(int(bdays)):
+        bdayList.append(randomDate())
+    print(bdayList)
+
 
 def randomDate():
     month = random.randint(1, 12)
@@ -15,5 +25,6 @@ def randomDate():
             maxday = 31
     day = random.randint(1, maxday)
     return (month, day)
+
 if __name__ == "__main__":
     main()
