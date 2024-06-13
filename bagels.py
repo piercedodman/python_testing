@@ -24,18 +24,19 @@ def intro():
     print("  You have 10 guesses to get it.")
 
 def guesses():
-    num = [int(x) for x in str(r.randint(100,999))]
+    num1 = r.randint(100,999)
+    num = [int(x) for x in str(num1)]
     i = 1
     while i <= 10:
         print(f"\nGuess #{i}:")
         inp = input()
         try:
             inp = [int(x) for x in inp]
-
-            for n in range(len(num)):
-                if inp == num:
-                    exit("You got it!")     
-                elif inp[n] == num[n]:
+            if inp == num:
+                print("You got it!")
+                break  
+            for n in range(len(num)):   
+                if inp[n] == num[n]:
                     print("Fermi", end = ' ')
                 elif inp[n] in num:
                     print("Pico", end = ' ')
@@ -45,12 +46,14 @@ def guesses():
                 if n in num:
                     check = True
             if check == False:
-                print("Bagels")
+                print("Bagels", end = ' ')
             i += 1
         except ValueError:
             print("Please enter a 3-digit integer.")
         except IndexError:
             print("Please enter a 3-digit integer.")
+    
+    print("\nThe correct number was", num1)
 
 if __name__ == "__main__":
     main()
