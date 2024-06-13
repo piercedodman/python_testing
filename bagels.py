@@ -2,13 +2,16 @@ import random as r
 
 def main():
     intro()
-    guesses()
-    while True:
-        ans = input("\nDo you want to play again? (yes or no)\n")
-        if ans.lower().strip() == "no" or ans.lower().strip() == 'n':
-            exit("Thanks for playing!")
-        elif ans.lower().strip() == "yes" or ans.lower().strip() == 'y':
-            guesses()
+    try:
+        guesses()
+        while True:
+            ans = input("\nDo you want to play again? (yes or no)\n")
+            if ans.lower().strip() == "no" or ans.lower().strip() == 'n':
+                exit("Thanks for playing!")
+            elif ans.lower().strip() == "yes" or ans.lower().strip() == 'y':
+                guesses()
+    except KeyboardInterrupt:
+        exit()
 
 def intro():
     print("Bagels, a deductive logic game\nBy PieDod\nI am thinking of a 3-digit number. Try to guess what it is.")
@@ -22,28 +25,32 @@ def intro():
 
 def guesses():
     num = [int(x) for x in str(r.randint(100,999))]
-    print(num)
     i = 1
     while i <= 10:
         print(f"\nGuess #{i}:")
         inp = input()
-        inp = [int(x) for x in inp]
-        
-        for n in range(len(num)):
-            if inp == num:
-                exit("You got it!")     
-            elif inp[n] == num[n]:
-                print("Fermi", end = ' ')
-            elif inp[n] in num:
-                print("Pico", end = ' ')
-        
-        check = False
-        for n in inp:
-            if n in num:
-                check = True
-        if check == False:
-            print("Bagels")
-        i += 1
+        try:
+            inp = [int(x) for x in inp]
+
+            for n in range(len(num)):
+                if inp == num:
+                    exit("You got it!")     
+                elif inp[n] == num[n]:
+                    print("Fermi", end = ' ')
+                elif inp[n] in num:
+                    print("Pico", end = ' ')
+            
+            check = False
+            for n in inp:
+                if n in num:
+                    check = True
+            if check == False:
+                print("Bagels")
+            i += 1
+        except ValueError:
+            print("Please enter a 3-digit integer.")
+        except IndexError:
+            print("Please enter a 3-digit integer.")
 
 if __name__ == "__main__":
     main()
