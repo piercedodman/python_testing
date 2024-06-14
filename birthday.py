@@ -1,25 +1,40 @@
 import random 
-import datetime 
 
 def main():
+    SIMRUNS = 1000000
     while True:
         bdays = int(input("How many birthdays should I generate? (Max 100)\n"))
         if bdays <= 100:
             break
         else:
             raise ValueError("Please enter a lower integer.")
-    bdayList = []
-    for _ in range(int(bdays)):
-        bdayList.append(randomDate())
+        
+    bdayList = bdayLGen(bdays)
     
     print(f"Here are {bdays} birthdays:")
     for i in range(len(bdayList)):
         print(f"{monthConverter(bdayList[i][0])} {bdayList[i][1]},", end = ' ')
 
-    print("\nIn this simulation multiple people have their birthday on", end=' ')
     n = dupFinder(bdayList)
-    for i in range(len(n)):
-        print(f"{monthConverter(n[i][0])} {n[i][1]},", end = ' ')
+    if not n:
+        print("\nAll birthdays in this simulated group are unique.")
+    else:
+        print("\nIn this simulation multiple people have their birthday on", end=' ')
+        for i in range(len(n)):
+            print(f"{monthConverter(n[i][0])} {n[i][1]},", end = ' ')
+
+    print(f"Generating {bdays} random birthdays {SIMRUNS:,d} times...")
+    print("This may take a moment. Your patience is appreciated.")
+
+    dupcount = 0
+    for i in range(SIMRUNS):
+        bdayList1 = bdayLGen(bdays)
+        m = dupFinder(bdayList1)
+        if len(m) > 0:
+            dupcount += 1
+    
+    print(f"\nOut of {SIMRUNS:,d} simulations of {bdays} people, there was a matching birthday {dupcount:,d} times.")
+    print(f"This means that {bdays} people have a {dupcount/SIMRUNS:.2%} of having a matching birthday in their group.")
 
 def randomDate():
     month = random.randint(1, 12)
@@ -69,6 +84,12 @@ def dupFinder(tlist):
         else:
             d[tup] = 1
     return duplicates
+
+def bdayLGen(n):
+    bdayList = []
+    for _ in range(int(n)):
+        bdayList.append(randomDate())
+    return bdayList
 
 if __name__ == "__main__":
     main()
