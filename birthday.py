@@ -13,8 +13,13 @@ def main():
         bdayList.append(randomDate())
     
     print(f"Here are {bdays} birthdays:")
-    for i in range(bdayList):
-        print(f"{bdayList[i][0]}")
+    for i in range(len(bdayList)):
+        print(f"{monthConverter(bdayList[i][0])} {bdayList[i][1]},", end = ' ')
+
+    
+
+
+    print(f"In this simulation multiple people have their birthday on {}")
 
 def randomDate():
     month = random.randint(1, 12)
@@ -54,6 +59,15 @@ def monthConverter(m):
             return "Nov"
         case 12:
             return "Dec"
+
+    def dupFinder(tlist):
+        d = {}
+        duplicates = []
+        for tup in tlist:
+            if tup in d:
+                duplicates.append(tup)
+            else:
+                d[tup] = 1
 
 if __name__ == "__main__":
     main()
