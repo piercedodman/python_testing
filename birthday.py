@@ -1,7 +1,7 @@
 import random 
 
 def main():
-    SIMRUNS = 1000000
+    SIMRUNS = 100000
     while True:
         bdays = int(input("How many birthdays should I generate? (Max 100)\n"))
         if bdays <= 100:
