@@ -1,10 +1,8 @@
 import sys
 
-# use %len(sys.argv[1].strip()) for printing the chars in the bitmap
-
 def main():
-    map = """
-....................................................................
+    map = """....................................................................
+
    **************   *  *** **  *      ******************************
   ********************* ** ** *  * ****************************** *
  **      *****************       ******************************
@@ -24,18 +22,18 @@ def main():
                     ****              **                 *******   *
                     ***                                       *    *
                     **     *                    *
-....................................................................
-"""
+                    
+...................................................................."""
     text = list(sys.argv[1])
-    #print(text)
+    lmap = map.splitlines(True)
     nmap = []
-    for m in range(len(map)):
-        if map[m].isspace():
-            nmap.append(map[m])
-        if map[m] == "\n":
-            nmap.append("\n")
-        else:
-            nmap.append(text[m %len(text)])
+    
+    for i in range(len(lmap)):
+        for m in range(len(lmap[i])):
+            if lmap[i][m].isspace():
+                nmap.append(lmap[i][m])
+            else:
+                nmap.append(text[m %len(text)])
     print(''.join(nmap))
 
 if __name__ == "__main__":
