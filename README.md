@@ -1,6 +1,6 @@
 # My Python Projects
 
-Welcome to my repository of various Python projects! This repo serves as a collection of my coding experiments, small utilities, and random ideas implemented in Python.
+Welcome to my repository of various Python projects! This repo serves as a collection of my coding experiments, small utilities, and random ideas implemented in Python. The majority of these ideas can be found in Al Sweigart's *The Big Book of Small Python Projects*. 
 
 ## Table of Contents
 
@@ -12,17 +12,20 @@ Welcome to my repository of various Python projects! This repo serves as a colle
 
 ## Introduction
 
-As a Python enthusiast, I love exploring different aspects of the language and building small projects to enhance my skills. This repository is a showcase of my journey and the various scripts and programs I've created along the way.
+As a Python enthusiast, I love exploring different aspects of the language and building small projects to enhance my skills. This repository is a showcase of some of my journey and the various scripts and programs I've created along the way.
 
 Please note that the commit messages in this repository might not always be well-organized or follow best practices. The primary focus is on the code itself and the learning experience behind each project.
 
 ## Projects
 
-Here are some of the projects you'll find in this repository:
+### Command Line Blackjack
+This project is a script that allows you to play the classic game of Blackjack right in your command line interface. It provides an interactive and enjoyable experience, implementing the basic rules of the game.
 
-1. **Project 1**: A brief description of the project and its purpose.
-2. **Project 2**: Another interesting project with a concise explanation.
-3. **Project 3**: Yet another project worth mentioning.
+### Birthday Problem Simulator
+The Birthday Problem Simulator is a program that runs simulations to demonstrate the famous birthday problem in probability theory. It calculates the probability of two or more people sharing the same birthday in a group of a given size.
+
+### ASCII World Map Generator
+This project is a command-line tool that generates an ASCII art representation of the world map. It takes text input provided by the user and creates a visually appealing map using ASCII characters.
 
 Feel free to explore the individual project directories to learn more about each one and how to use them.
 
