@@ -15,7 +15,7 @@ def main():
     money = 5000
     
     while True:
-        print(f"Money: {money:,}")
+        print(f"\nMoney: {money:,}")
         bet = input(f"\nHow much do you bet? (1 - {money:,} or Quit)\n")
         try:
             if bet[0].lower() == 'q':
@@ -54,11 +54,23 @@ def render(*args):
     if len(args) == 1:
         n = numToName(args[0][0])
         print(f" ___   ___ \n|## | |{n:<3}|\n|###| |{suits(args[0][1]):^3}|\n|_##| |{n:_>3}|\n")
-
-    if len(args) == 2:
-        n = numToName(args[0][0])
-        n0 = numToName(args[1][0])
-        print(f" ___   ___ \n|{n0:<3}| |{n:<3}|\n|{suits(args[1][1]):^3}| |{suits(args[0][1]):^3}|\n|{n0:_>3}| |{n:_>3}|\n")
+    else:
+        cardListT = []
+        cardListM1 = []
+        cardListM2 = []
+        cardListM3 = []
+        for i in range(len(args)):
+            n = numToName(args[i][0])
+            cardListT.append(" ___ ")
+            cardListM1.append(f"|{n:<3}|")
+            cardListM2.append(f"|{suits(args[i][1]):^3}|")
+            cardListM3.append(f"|{n:_>3}|")
+        cardListT = ''.join(cardListT)
+        cardListM1 = ''.join(cardListM1)
+        cardListM2 = ''.join(cardListM2)
+        cardListM3 = ''.join(cardListM3)
+        print(cardListT, cardListM1, cardListM2, cardListM3, sep = '\n')
+            
 
 def total(*args):
     cards = []
