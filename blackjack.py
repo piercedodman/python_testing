@@ -66,7 +66,7 @@ def total(*args):
     for n in args:
         cards.append(args[n][0])
     if 1 in cards:
-        ...
+        return
 
 #figure out total mechanism here 
 
