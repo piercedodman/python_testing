@@ -1,4 +1,4 @@
-import itertools, random, sys, collections
+import itertools, random, sys
 
 def main():
     try:
@@ -20,23 +20,101 @@ def main():
         try:
             if bet[0].lower() == 'q':
                 sys.exit("Thank you for playing!")
-            if 1 <= int(bet) <= money:
+            elif 1 <= int(bet) <= money:
                 print(f"Bet: {bet}\n")
             else:
                 continue
         except ValueError:
             continue
         
+        house = None
+        player = None
+
+        
         house = deck[:2]
         player = deck[2:4]
+        
 
+        bet = int(bet)
+        dP = 4
         print("DEALER: ???")
 
         render(house[0])
 
-        print(f"\nPLAYER:{...}\n")
+        print(f"\nPLAYER:{numTotal(*player)}\n")
 
         render(*player)
+
+        while True:
+            if numTotal(*house) <= 16:
+                house.append(deck[dP])
+                dP += 1 
+            move = input("Hit, Stand, or Double Down?\n")
+            if move[0].lower() == 'h':
+                player.append(deck[dP])
+                print(f"\nYou drew a {numToName(deck[dP][0])} of {suits(deck[dP][1])}")
+                dP += 1
+                continue
+            elif move[0].lower() == 's':
+                break
+            elif move[0].lower() == 'd':
+                bet *= 2
+                player.append(deck[dP])
+                print(f"\nYou drew a {numToName(deck[dP][0])} of {suits(deck[dP][1])}")
+                dP += 1
+                break
+            elif move[0].lower() == 'q':
+                sys.exit("Thank you for playing!")
+            else:
+                continue
+        
+        print(f"\nDEALER:{numTotal(*house)}\n")
+
+        render(*house)
+
+        print(f"\nPLAYER:{numTotal(*player)}\n")
+
+        render(*player)
+
+        for _ in range(dP):
+            shoe.append(deck[0])
+            deck.pop(0)
+
+        if (numTotal(*player) <= 21) and (numTotal(*house) <= 21):
+            if (numTotal(*player) > numTotal(*house)):
+                print(f"You win ${bet}!")
+                money += bet
+                continue
+            elif numTotal(*house) > numTotal(*player):
+                print(f"You lose ${bet}.")
+                money -= bet
+                if money <= 0:
+                    sys.exit("You are out of money! Thanks for playing!")
+                continue
+            elif (numTotal(*player) == numTotal(*house)):
+                print("Its a tie!")
+                continue
+            else:
+                print("Error")
+                sys.exit()
+        elif numTotal(*house) > 21:
+            if numTotal(*player) <= 21:
+                print(f"You win ${bet}!")
+                money += bet
+                continue
+            else:
+                print("Its a tie!")
+                continue
+        elif numTotal(*player) > 21:
+            if numTotal(*house) <= 21:
+                print(f"You lose ${bet}.")
+                money -= bet
+                if money <= 0:
+                    sys.exit("You are out of money! Thanks for playing!")
+                continue
+            else:
+                print("Its a tie!")
+                continue
 
 def suits(t):
     match t:
@@ -69,31 +147,55 @@ def render(*args):
         cardListM1 = ''.join(cardListM1)
         cardListM2 = ''.join(cardListM2)
         cardListM3 = ''.join(cardListM3)
-        print(cardListT, cardListM1, cardListM2, cardListM3, sep = '\n')
+        print(cardListT, cardListM1, cardListM2, cardListM3, sep = '\n', end = "\n\n")
             
 
-def total(*args):
+# def total(*args):
+#     cards = []
+#     total = 0
+#     for n in range(len(args)):
+#         cards.append(args[n][0])
+#     for i in range(len(cards)):
+#         if cards[i] == 11 or cards[i] == 12 or cards[i] == 13:
+#             cards[i] = 10
+#             total += cards[i]
+#     if 1 in cards:
+#         return f" {total} OR {total + 10}" #The 1 in the ace is baked in when the initial total gets taken
+#     else:
+#         return f" {total}"
+    
+def numTotal(*args):
     cards = []
     total = 0
-    for n in args:
+    for n in range(len(args)):
         cards.append(args[n][0])
+    for i in range(len(cards)):
+        if cards[i] == 11 or cards[i] == 12 or cards[i] == 13:
+            cards[i] = 10
+            total += cards[i]
+        else:
+            total += cards[i]
     if 1 in cards:
-        return
-
-#figure out total mechanism here 
+        if total + 10 <= 21:
+            return total +10
+        else:
+            return total
+    else:
+        return total
 
 
 def numToName(n: int):
-    if n == 13:
-        return 'K'
-    elif n == 12:
-        return 'Q'
-    elif n == 11:
-        return 'J'
-    elif n == 1:
-        return 'A'
-    else:
-        return n
-        
+    match n:
+        case 13:
+             return 'K'
+        case 12:
+            return 'Q'
+        case 11: 
+            return 'J'
+        case 1:
+            return 'A'
+        case _:
+            return n
+    
 if __name__ == "__main__":
     main()
