@@ -54,7 +54,10 @@ def main():
                 player.append(deck[dP])
                 print(f"\nYou drew a {numToName(deck[dP][0])} of {suits(deck[dP][1])}")
                 dP += 1
-                continue
+                if numTotal(*player) > 21:
+                    break
+                else:
+                    continue
             elif move[0].lower() == 's':
                 break
             elif move[0].lower() == 'd':
@@ -148,21 +151,6 @@ def render(*args):
         cardListM2 = ''.join(cardListM2)
         cardListM3 = ''.join(cardListM3)
         print(cardListT, cardListM1, cardListM2, cardListM3, sep = '\n', end = "\n\n")
-            
-
-# def total(*args):
-#     cards = []
-#     total = 0
-#     for n in range(len(args)):
-#         cards.append(args[n][0])
-#     for i in range(len(cards)):
-#         if cards[i] == 11 or cards[i] == 12 or cards[i] == 13:
-#             cards[i] = 10
-#             total += cards[i]
-#     if 1 in cards:
-#         return f" {total} OR {total + 10}" #The 1 in the ace is baked in when the initial total gets taken
-#     else:
-#         return f" {total}"
     
 def numTotal(*args):
     cards = []
