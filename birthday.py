@@ -1,4 +1,5 @@
-import random 
+import random
+
 
 def main():
     SIMRUNS = 100000
@@ -8,20 +9,20 @@ def main():
             break
         else:
             raise ValueError("Please enter a lower integer.")
-        
+
     bdayList = bdayLGen(bdays)
-    
+
     print(f"Here are {bdays} birthdays:")
     for i in range(len(bdayList)):
-        print(f"{monthConverter(bdayList[i][0])} {bdayList[i][1]},", end = ' ')
+        print(f"{monthConverter(bdayList[i][0])} {bdayList[i][1]},", end=" ")
 
     n = dupFinder(bdayList)
     if not n:
         print("\nAll birthdays in this simulated group are unique.")
     else:
-        print("\nIn this simulation multiple people have their birthday on", end=' ')
+        print("\nIn this simulation multiple people have their birthday on", end=" ")
         for i in range(len(n)):
-            print(f"{monthConverter(n[i][0])} {n[i][1]},", end = ' ')
+            print(f"{monthConverter(n[i][0])} {n[i][1]},", end=" ")
 
     print(f"Generating {bdays} random birthdays {SIMRUNS:,d} times...")
     print("This may take a moment. Your patience is appreciated.")
@@ -32,9 +33,14 @@ def main():
         m = dupFinder(bdayList1)
         if len(m) > 0:
             dupcount += 1
-    
-    print(f"\nOut of {SIMRUNS:,d} simulations of {bdays} people, there was a matching birthday {dupcount:,d} times.")
-    print(f"This means that {bdays} people have a {dupcount/SIMRUNS:.2%} of having a matching birthday in their group.")
+
+    print(
+        f"\nOut of {SIMRUNS:,d} simulations of {bdays} people, there was a matching birthday {dupcount:,d} times."
+    )
+    print(
+        f"This means that {bdays} people have a {dupcount/SIMRUNS:.2%} of having a matching birthday in their group."
+    )
+
 
 def randomDate():
     month = random.randint(1, 12)
@@ -43,10 +49,11 @@ def randomDate():
             maxday = 30
         case 2:
             maxday = 28
-        case _ :
+        case _:
             maxday = 31
     day = random.randint(1, maxday)
     return (month, day)
+
 
 def monthConverter(m):
     match m:
@@ -75,6 +82,7 @@ def monthConverter(m):
         case 12:
             return "Dec"
 
+
 def dupFinder(tlist):
     d = {}
     duplicates = []
@@ -85,11 +93,13 @@ def dupFinder(tlist):
             d[tup] = 1
     return duplicates
 
+
 def bdayLGen(n):
     bdayList = []
     for _ in range(int(n)):
         bdayList.append(randomDate())
     return bdayList
+
 
 if __name__ == "__main__":
     main()
